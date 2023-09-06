@@ -1,15 +1,21 @@
 const { City } = require('../models/index')
 
  class CityRepository{
+
+    // Function to create city, with making contact with model 
     async createCity({name}) {
         try {
-            const city = await City.create({name});
+            const city = await City.create({
+                name
+            });
             return city;
         } catch (error) {
-            throw error;
+            console.log("Error occured in the repository layer");
+            throw {error};
         }
     }
 
+    // Function to delete city, with making contact with model 
     async deleteCity(cityId){
         try {
             await City.destroy({
@@ -17,8 +23,36 @@ const { City } = require('../models/index')
                     id: cityId
                 }
             });
+            return true;
         } catch (error) {
-            throw error;
+            console.log("Error occured in the repository layer");
+            throw {error};
+        }
+    }
+
+    // Function to update city, with making contact with model
+    async updateCity(cityId, data){
+        try {
+            const city = await City.update(data, {
+                where: {
+                    id: cityId
+                }
+            });
+            return city;
+        } catch (error) {
+            console.log("Error occured in the repository layer");
+            throw {error};
+        }
+    }
+
+    // Function to get city, with making contact with model
+    async getCity(cityId) {
+        try {
+            const city = await City.findByPk(cityId);
+            return city;
+        } catch (error) {
+            console.log("Error occured in the repository layer");
+            throw {error};
         }
     }
  }
