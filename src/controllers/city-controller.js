@@ -72,7 +72,7 @@ const update = async (req, res) => {
         return res.status(200).json({
             data: response,
             success: true,
-            message: "Something updated the city",
+            message: "Successfully updated the city",
             err: {}
         });
     } catch (error) {
@@ -86,9 +86,30 @@ const update = async (req, res) => {
     }
 }
 
+const getAll = async (req, res) => {
+    try {
+        const cities = await cityService.getAllCities(req.query);
+        return res.status(200).json({
+            data: cities,
+            success: true,
+            message: "Get all the city",
+            err: {}
+        });
+    } catch (error) {
+        console.log(error);
+        return res.status(400).json({
+            data: {},
+            succes: false,
+            message: "Not able to get all city",
+            error: error
+        });
+    }
+}
+
 module.exports = {
     create,
     destroy,
     get,
-    update
+    update,
+    getAll
 }
