@@ -49,7 +49,7 @@ const { Op } = require('sequelize');
     // Function to get city, with making contact with model
     async getCity(cityId) {
         try {
-            const city = await City.findByPk(cityId);
+            const city = await City.findByPk(cityId, {include: ["airports"]});
             return city;
         } catch (error) {
             console.log("Error occured in the repository layer");
@@ -66,11 +66,12 @@ const { Op } = require('sequelize');
                         name: {
                             [Op.startsWith]: filter.name
                         }
-                    }
-                });
+                    },
+                    include: ["airports"]
+                },);
                 return cities;
             }
-            const cities = await City.findAll();
+            const cities = await City.findAll({include: ["airports"]});
             return cities;
         } catch (error) {
             console.log("Error occured in the repository layer");
