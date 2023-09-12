@@ -1,5 +1,5 @@
 class CrudService {
-    
+
     constructor(repository) {
         this.repository = repository;
     }

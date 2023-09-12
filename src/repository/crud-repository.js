@@ -1,6 +1,7 @@
 class CrudRepository {
+
     constuctor(model) {
-        this.model - model;
+        this.model = model;
     }
 
     async create(data){
@@ -9,7 +10,7 @@ class CrudRepository {
             return result;
         } catch (error) {
             console.log("Something went wrong in Crud Repository")
-            throw { error };
+            throw error;
         }
     }
 
@@ -23,7 +24,7 @@ class CrudRepository {
             return result;
         } catch (error) {
             console.log("Something went wrong in Crud Repository")
-            throw { error };
+            throw error;
         } 
     }
 
@@ -33,7 +34,7 @@ class CrudRepository {
             return result;
         } catch (error) {
             console.log("Something went wrong in Crud Repository")
-            throw { error };
+            throw error;
         }
     }
 
@@ -43,7 +44,7 @@ class CrudRepository {
             return result;
         } catch (error) {
             console.log("Something went wrong in Crud Repository")
-            throw { error };
+            throw error;
         }
     }
 
@@ -57,7 +58,7 @@ class CrudRepository {
             return result;
         } catch (error) {
             console.log("Something went wrong in Crud Repository")
-            throw { error };
+            throw error;
         }
     }
 }
