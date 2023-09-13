@@ -1,0 +1,35 @@
+const { FlightRepository, AirplaneRepository } = require('../repository/index');
+const { compareTime } = require('../utils/helper');
+
+const CrudService = require('./crud-service');
+
+class FlightService extends CrudService {
+
+    constructor(){
+        const flightRepository = new FlightRepository();
+        super(flightRepository);
+    }
+
+    async create(data) {
+        try {
+            this.flightRepository = new FlightRepository();
+            this.airplaneRepository = new AirplaneRepository();
+            if(!compareTime(data.arrivalTime, data.departureTime)) {
+                throw {
+                    error: 'Arrival time cannot be less than departure time',
+                }
+            }
+            const airplane = await this.airplaneRepository.get(data.airplaneId);
+            const flight = await this.flightRepository.create({
+                ...data, totalSeats: airplane.capacity
+            });
+            return flight;
+        } catch (error) {
+            console.log("Something went wrong inside flight service");
+            throw error;
+        }
+    }
+
+}
+
+module.exports = FlightService;
