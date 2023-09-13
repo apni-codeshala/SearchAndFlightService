@@ -1,4 +1,5 @@
 const { FlightService } = require('../services/index');
+const { ClientErrorCodes, SuccessCodes } = require('../utils/error-code')
 
 const flightServie = new FlightService();
 
@@ -14,7 +15,7 @@ const create = async (req, res) => {
             price: req.body.price
         }
         const flight = await flightServie.create(flightRequestData);
-        return res.status(200).json({
+        return res.status(SuccessCodes.CREATED).json({
             result: flight,
             success: true,
             message: 'Flight created successfully',
@@ -22,7 +23,7 @@ const create = async (req, res) => {
         })
     } catch (error) {
         console.log("Something went wrong inside flight controllers");
-        return res.status(400).json({
+        return res.status(ClientErrorCodes.BAD_REQUEST).json({
             result: {},
             success: false,
             message: 'Not able to create flight',
@@ -34,7 +35,7 @@ const create = async (req, res) => {
 const destroy = async (req, res) => {
     try {
         const response = await flightServie.destroy(req.params.id);
-        return res.status(200).json({
+        return res.status(SuccessCodes.CREATED).json({
             data: response,
             success: true,
             message: 'Flight deleted successfully',
@@ -42,7 +43,7 @@ const destroy = async (req, res) => {
         });
     } catch (error) {
         console.log("Something went wrong inside flight controllers");
-        return res.status(400).json({
+        return res.status(ClientErrorCodes.BAD_REQUEST).json({
             data: {},
             succes: false,
             message: "Not able to delete flight",
@@ -54,7 +55,7 @@ const destroy = async (req, res) => {
 const get = async (req, res) => {
     try {
         const flight = await flightServie.get(req.params.id);
-        return res.status(200).json({
+        return res.status(SuccessCodes.CREATED).json({
             data: flight,
             success: true,
             message: "Get flight successful",
@@ -62,7 +63,7 @@ const get = async (req, res) => {
         });
     } catch (error) {
         console.log("Something went wrong inside flight controllers");
-        return res.status(400).json({
+        return res.status(ClientErrorCodes.BAD_REQUEST).json({
             data: {},
             succes: false,
             message: "Not able to get the flight",
@@ -74,7 +75,7 @@ const get = async (req, res) => {
 const getAll = async (req, res) => {
     try{
         const flight = await flightServie.getAll(req.query);
-        return res.status(200).json({
+        return res.status(SuccessCodes.CREATED).json({
             data: flight,
             success: true,
             message: "Get flight successful",
@@ -82,7 +83,7 @@ const getAll = async (req, res) => {
         });
     } catch (error) {
         console.log("Something went wrong inside flight controllers");
-        return res.status(400).json({
+        return res.status(ClientErrorCodes.BAD_REQUEST).json({
             data: {},
             succes: false,
             message: "Not able to get the flights",
@@ -94,7 +95,7 @@ const getAll = async (req, res) => {
 const update = async (req, res) => {
     try {
         const response = await flightServie.update(req.params.id, req.body);
-        return res.status(200).json({
+        return res.status(SuccessCodes.CREATED).json({
             data: response,
             success: true,
             message: "Flight updated successful",
@@ -102,7 +103,7 @@ const update = async (req, res) => {
         });
     } catch (error) {
         console.log(error);
-        return res.status(400).json({
+        return res.status(ClientErrorCodes.BAD_REQUEST).json({
             data: {},
             succes: false,
             message: "Not able to update flight",

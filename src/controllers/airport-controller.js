@@ -1,11 +1,12 @@
 const { AirportService } = require('../services/index');
+const { ClientErrorCodes, SuccessCodes } = require('../utils/error-code')
 
 const airportService = new AirportService();
 
 const create = async (req, res) => {
     try {
         const airport = await airportService.create(req.body);
-        return res.status(201).json({
+        return res.status(SuccessCodes.CREATED).json({
             data: airport,
             success: true,
             message: "Airport created succesfullt",
@@ -13,7 +14,7 @@ const create = async (req, res) => {
         });
     } catch (error) {
         console.log(error);
-        return res.status(400).json({
+        return res.status(ClientErrorCodes.BAD_REQUEST).json({
             data: {},
             succes: false,
             message: "Not able to create airport",
@@ -25,7 +26,7 @@ const create = async (req, res) => {
 const destroy = async (req, res) => {
     try {
         const response = await airportService.delete(req.params.id);
-        return res.status(200).json({
+        return res.status(SuccessCodes.CREATED).json({
             data: response,
             success: true,
             message: "Airport deleted successful",
@@ -33,7 +34,7 @@ const destroy = async (req, res) => {
         });
     } catch (error) {
         console.log(error);
-        return res.status(400).json({
+        return res.status(ClientErrorCodes.BAD_REQUEST).json({
             data: {},
             succes: false,
             message: "Not able to delete airport",
@@ -45,7 +46,7 @@ const destroy = async (req, res) => {
 const get = async (req, res) => {
     try {
         const airport = await airportService.get(req.params.id);
-        return res.status(200).json({
+        return res.status(SuccessCodes.CREATED).json({
             data: airport,
             success: true,
             message: "Get airport successful",
@@ -53,7 +54,7 @@ const get = async (req, res) => {
         });
     } catch (error) {
         console.log(error);
-        return res.status(400).json({
+        return res.status(ClientErrorCodes.BAD_REQUEST).json({
             data: {},
             succes: false,
             message: "Not able to get the airport",
@@ -65,7 +66,7 @@ const get = async (req, res) => {
 const update = async (req, res) => {
     try {
         const response = await airportService.update(req.params.id, req.body);
-        return res.status(200).json({
+        return res.status(SuccessCodes.CREATED).json({
             data: response,
             success: true,
             message: "Airport updated successful",
@@ -73,7 +74,7 @@ const update = async (req, res) => {
         });
     } catch (error) {
         console.log(error);
-        return res.status(400).json({
+        return res.status(ClientErrorCodes.BAD_REQUEST).json({
             data: {},
             succes: false,
             message: "Not able to update airport",
@@ -85,7 +86,7 @@ const update = async (req, res) => {
 const getAll = async (req, res) => {
     try {
         const airports = await airportService.getAll(req.query);
-        return res.status(200).json({
+        return res.status(SuccessCodes.CREATED).json({
             data: airports,
             success: true,
             message: "Airports fetched successful",
@@ -93,7 +94,7 @@ const getAll = async (req, res) => {
         });
     } catch (error) {
         console.log(error);
-        return res.status(400).json({
+        return res.status(ClientErrorCodes.BAD_REQUEST).json({
             data: {},
             succes: false,
             message: "Not able to get airport",

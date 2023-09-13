@@ -1,11 +1,12 @@
 const { AirplaneService } = require('../services/index');
+const { ClientErrorCodes, SuccessCodes } = require('../utils/error-code')
 
 const airplaneService = new AirplaneService();
 
 const create = async (req, res) => {
     try {
         const airplane = await airplaneService.create(req.body);
-        return res.status(200).json({
+        return res.status(SuccessCodes.CREATED).json({
             result: airplane,
             success: true,
             message: 'Airplane created successfully',
@@ -13,7 +14,7 @@ const create = async (req, res) => {
         })
     } catch (error) {
         console.log("Something went wrong inside airplane controllers");
-        return res.status(400).json({
+        return res.status(ClientErrorCodes.BAD_REQUEST).json({
             result: {},
             success: false,
             message: 'Not able to create airplane',
@@ -25,7 +26,7 @@ const create = async (req, res) => {
 const destroy = async (req, res) => {
     try {
         const response = await airplaneService.destroy(req.params.id);
-        return res.status(200).json({
+        return res.status(SuccessCodes.CREATED).json({
             data: response,
             success: true,
             message: 'Airplane deleted successfully',
@@ -33,7 +34,7 @@ const destroy = async (req, res) => {
         });
     } catch (error) {
         console.log(error);
-        return res.status(400).json({
+        return res.status(ClientErrorCodes.BAD_REQUEST).json({
             data: {},
             succes: false,
             message: "Not able to delete airplane",
@@ -45,7 +46,7 @@ const destroy = async (req, res) => {
 const get = async (req, res) => {
     try {
         const airplane = await airplaneService.get(req.params.id);
-        return res.status(200).json({
+        return res.status(SuccessCodes.CREATED).json({
             data: airplane,
             success: true,
             message: "Get airplane successful",
@@ -53,7 +54,7 @@ const get = async (req, res) => {
         });
     } catch (error) {
         console.log(error);
-        return res.status(400).json({
+        return res.status(ClientErrorCodes.BAD_REQUEST).json({
             data: {},
             succes: false,
             message: "Not able to get the airplane",
@@ -65,7 +66,7 @@ const get = async (req, res) => {
 const update = async (req, res) => {
     try {
         const response = await airplaneService.update(req.params.id, req.body);
-        return res.status(200).json({
+        return res.status(SuccessCodes.CREATED).json({
             data: response,
             success: true,
             message: "Airplane updated successful",
@@ -73,7 +74,7 @@ const update = async (req, res) => {
         });
     } catch (error) {
         console.log(error);
-        return res.status(400).json({
+        return res.status(ClientErrorCodes.BAD_REQUEST).json({
             data: {},
             succes: false,
             message: "Not able to update airplane",
@@ -85,7 +86,7 @@ const update = async (req, res) => {
 const getAll = async (req, res) => {
     try {
         const airplanes = await airplaneService.getAll(req.query);
-        return res.status(200).json({
+        return res.status(SuccessCodes.CREATED).json({
             data: airplanes,
             success: true,
             message: "Airplanes fetched successful",
@@ -93,7 +94,7 @@ const getAll = async (req, res) => {
         });
     } catch (error) {
         console.log(error);
-        return res.status(400).json({
+        return res.status(ClientErrorCodes.BAD_REQUEST).json({
             data: {},
             succes: false,
             message: "Not able to get airplane",
