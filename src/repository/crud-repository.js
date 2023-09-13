@@ -1,15 +1,17 @@
 class CrudRepository {
 
-    constuctor(model) {
+    constructor(model) {
         this.model = model;
     }
 
-    async create(data){
+    async create({ name }) {
         try {
-            const result = await this.model.create(data);
-            return result;
+            const city = await this.model.create({
+                name
+            });
+            return city;
         } catch (error) {
-            console.log("Something went wrong in Crud Repository")
+            console.log("Error occured in the repository layer");
             throw error;
         }
     }
@@ -20,12 +22,12 @@ class CrudRepository {
                 where: {
                     id: modelId
                 }
-            })
-            return result;
+            });
+            return true;
         } catch (error) {
-            console.log("Something went wrong in Crud Repository")
+            console.log("Error occured in the repository layer");
             throw error;
-        } 
+        }
     }
 
     async get(modelId) {

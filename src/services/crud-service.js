@@ -4,13 +4,13 @@ class CrudService {
         this.repository = repository;
     }
 
-    async create(data) {
+    async create(data){
         try {
-            const response = await this.repository.create(data);
-            return response;
+            const result = await this.repository.create(data);
+            return result;        
         } catch (error) {
-            console.log("Something went wrong in Crud Service");
-            throw { error };
+            console.log("Something went wrong in service layer");
+            throw error;
         }
     }
 
