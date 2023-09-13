@@ -8,6 +8,18 @@ class FlightRepository extends CrudRepository {
         super(Flight)
     }
 
+    async getAll(filter) {
+        try {
+            const flight = await Flight.findAll({
+                where: filter
+            })
+            return flight
+        } catch (error) {
+            console.log("Something went wrong inside flight repository");
+            throw error;
+        }
+    }
+
 }
 
 module.exports = FlightRepository;
