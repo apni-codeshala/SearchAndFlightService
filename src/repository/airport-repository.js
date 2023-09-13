@@ -1,61 +1,15 @@
 const { Airport, City } = require('../models/index');
 const { Op } = require('sequelize');
 
-class AirportRepository {
+const CrudRepository = require('./crud-repository')
 
-    async createAirport({name, address, cityId}){
-        try {
-            const airport = await Airport.create({
-                name: name,
-                address: address,
-                cityId: cityId
-            })
-            return airport;
-        } catch (error) {
-            console.log("Something went wrong at airport repositiory");
-            throw {error};
-        }
+class AirportRepository extends CrudRepository {
+
+    constructor(){
+        super(Airport);
     }
 
-    async deleteAirport(airportId){
-        try {
-            await Airport.destroy({
-                where: {
-                    id: airportId
-                }
-            })
-            return true;
-        } catch (error) {
-            console.log("Something went wrong at airport repositiory");
-            throw {error};
-        }
-    }
-
-    async updateAirport(airportId, data){
-        try {
-            await Airport.update(data, {
-                where: {
-                    id: airportId
-                }
-            })
-            return true;
-        } catch (error) {
-            console.log("Something went wrong at airport repositiory");
-            throw {error};
-        }
-    }
-
-    async getAirport(airportId){
-        try {
-            const airport = await Airport.findByPk(airportId);
-            return airport;
-        } catch (error) {
-            console.log("Something went wrong at airport repositiory");
-            throw {error};
-        }
-    }
-
-    async getAllAirport(filter){
+    async getAll(filter){
         try {
             if(filter.name){
                 const airports = await Airport.findAll({
