@@ -4,11 +4,9 @@ class CrudRepository {
         this.model = model;
     }
 
-    async create({ name }) {
+    async create(data) {
         try {
-            const city = await this.model.create({
-                name
-            });
+            const city = await this.model.create(data);
             return city;
         } catch (error) {
             console.log("Error occured in the repository layer");

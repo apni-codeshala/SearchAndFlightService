@@ -29,3 +29,9 @@ module.exports = (sequelize, DataTypes) => {
   });
   return Airplane;
 };
+const get = async (req, res) => {
+    try {
+        const airplanes = await airplaneService.get(req.params.id);
+    } catch (error) {
+    }
+};

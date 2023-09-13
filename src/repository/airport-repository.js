@@ -1,4 +1,4 @@
-const { Airport, City } = require('../models/index');
+const { Airport } = require('../models/index');
 const { Op } = require('sequelize');
 
 const CrudRepository = require('./crud-repository')
