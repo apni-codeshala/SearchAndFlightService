@@ -4,7 +4,16 @@ const flightServie = new FlightService();
 
 const create = async (req, res) => {
     try {
-        const flight = await flightServie.create(req.body);
+        const flightRequestData = {
+            flightNumber: req.body.flightNumber,
+            airplaneId: req.body.airplaneId,
+            departureAirportId: req.body.departureAirportId,
+            arrivalAirportId: req.body.arrivalAirportId,
+            arrivalTime: req.body.arrivalTime,
+            departureTime: req.body.departureTime,
+            price: req.body.price
+        }
+        const flight = await flightServie.create(flightRequestData);
         return res.status(200).json({
             result: flight,
             success: true,
@@ -82,9 +91,30 @@ const getAll = async (req, res) => {
     }
 }
 
+const update = async (req, res) => {
+    try {
+        const response = await flightServie.update(req.params.id, req.body);
+        return res.status(200).json({
+            data: response,
+            success: true,
+            message: "Flight updated successful",
+            err: {}
+        });
+    } catch (error) {
+        console.log(error);
+        return res.status(400).json({
+            data: {},
+            succes: false,
+            message: "Not able to update flight",
+            error: error
+        });
+    }
+}
+
 module.exports = {
     create,
     get, 
     destroy, 
-    getAll
+    getAll,
+    update
 }

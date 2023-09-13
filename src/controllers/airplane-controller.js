@@ -44,9 +44,9 @@ const destroy = async (req, res) => {
 
 const get = async (req, res) => {
     try {
-        const airport = await airplaneService.get(req.params.id);
+        const airplane = await airplaneService.get(req.params.id);
         return res.status(200).json({
-            data: airport,
+            data: airplane,
             success: true,
             message: "Get airplane successful",
             err: {}
@@ -62,8 +62,50 @@ const get = async (req, res) => {
     }
 }
 
+const update = async (req, res) => {
+    try {
+        const response = await airplaneService.update(req.params.id, req.body);
+        return res.status(200).json({
+            data: response,
+            success: true,
+            message: "Airplane updated successful",
+            err: {}
+        });
+    } catch (error) {
+        console.log(error);
+        return res.status(400).json({
+            data: {},
+            succes: false,
+            message: "Not able to update airplane",
+            error: error
+        });
+    }
+}
+
+const getAll = async (req, res) => {
+    try {
+        const airplanes = await airplaneService.getAll(req.query);
+        return res.status(200).json({
+            data: airplanes,
+            success: true,
+            message: "Airplanes fetched successful",
+            err: {}
+        });
+    } catch (error) {
+        console.log(error);
+        return res.status(400).json({
+            data: {},
+            succes: false,
+            message: "Not able to get airplane",
+            error: error
+        });
+    }
+}
+
 module.exports = {
     create,
     get, 
-    destroy
+    destroy,
+    update,
+    getAll
 }

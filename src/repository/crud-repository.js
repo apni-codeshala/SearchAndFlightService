@@ -48,11 +48,11 @@ class CrudRepository {
         }
     }
 
-    async update(modelId, data) {
+    async update(id, data) {
         try {
             const result = await this.model.update(data, {
                 where: {
-                    id: modelId
+                    id: id
                 }
             });
             return result;
