@@ -55,6 +55,7 @@ const destroy = async (req, res) => {
 const get = async (req, res) => {
     try {
         const flight = await flightServie.get(req.params.id);
+        console.log(flight);
         return res.status(SuccessCodes.CREATED).json({
             data: flight,
             success: true,

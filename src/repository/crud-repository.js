@@ -50,6 +50,7 @@ class CrudRepository {
 
     async update(id, data) {
         try {
+            console.log(data);
             const result = await this.model.update(data, {
                 where: {
                     id: id
